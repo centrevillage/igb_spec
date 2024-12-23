@@ -14,7 +14,8 @@ IGB-DIプロトコルはMIDI1.0プロトコルをベースとしているもの�
 
 最大伝送距離は1mとする。それ以上の距離の通信を行うには別途トランスミッター等を利用することが望ましい。
 
-![TODO: UARTチェインの図](uart_chain.img)
+
+![TODO: UARTチェインの図](https://github.com/user-attachments/assets/7fa8c0cb-9a12-4bcc-a499-31c16f565ec9)
 
 各デバイス間の通信は双方向である。\
 Nextデバイスから受信したメッセージは、自身のメッセージとマージした上でPrevデバイスに送信する必要がある。\
@@ -24,7 +25,11 @@ RootデバイスでないデバイスはNodeデバイスと呼ぶ。
 
 *\*デバイスセレクトメッセージはMIDI1.0においてはチャネル・プレッシャーメッセージと解釈される*
 
-![TODO: Root/Nodeデバイスの図](root_node_devices.img)
+```mermaid
+flowchart TB
+  Root[Root Device] <-- "UART Chain" --> NodeA1[Node A1 Device] <-- "UART Chain" --> NodeA2[Node A2 Device]  
+  Root <-- "UART Chain" --> NodeB1[Node B1 Device] <-- "UART Chain" --> NodeB2[Node B2 Device]  
+```
 
 UARTチェインによる実装が困難な場合は代わりにI2Cによる通信を行っても良い(IGB-DI over I2C)。\
 その場合の通信レートは400kbps(Fast-mode)を標準とする。
@@ -111,8 +116,8 @@ RootデバイスはNodeデバイスに対してパラメータ情報取得メッ
 
 ```
 パラメータ情報フォーマット:
-  - パラメータ種別(入力 or 出力)
   - パラメータ番号
+  - パラメータ種別(入力/出力/入出力)
   - パラメータ名(最大16文字)
   - パラメータデータ長(7/14/21/28bit)
   - パラメータ表示型(note, number, envelope, float, percent, flag, enum, bitmap, string, format string)
@@ -133,12 +138,12 @@ RootデバイスはNodeデバイスに対してパラメータ情報取得メッ
 ## 3. コネクタ仕様
 
 接続は3.5mm TRS Jack/Plugによって行う。\
-送信側はTIPがUART TX、RINGがUART RX、SLEEVEにGNDが割り当てられる。\
-一方受信側はTIPが UART RX、RINGがUART TX、SLEEVEにGNDが割り当てられる。
+Prev側はTIPがUART TX、RINGがUART RX、SLEEVEにGNDが割り当てられる。\
+一方Next側はTIPが UART RX、RINGがUART TX、SLEEVEにGNDが割り当てられる。
 
 ![接続図](trs_connector.img)
 
-また、デバイスが同一のケースにマウントされる場合は、Molex KK254コネクタ(3pin)による接続も可能である。
+また、デバイスが同一のケースにマウントされる場合は、Molex KK 254コネクタ(3pin)による接続も可能である。
 
 ![接続図](MolexKK_connector.img)
 
@@ -177,10 +182,10 @@ IGBデバイスのパラメータ変更メッセージはは3-6byteで表現さ�
 
 データは上位桁から順に7bitずつ送信する。\
 データバイト数は各パラメータ情報によって決まり、7/14/21/28bitの4パターンがある。\
-パラメータの型はパラメータ番号ごとに固有である。\
-すなわち、チャネル番号ごとに固有のパラメータ型を持つことはできない。
+パラメータのデータ長と表示型はパラメータ番号ごとに固有である。\
+すなわち、チャネル番号ごとに固有のデータ長とパラメータ型を持つことはできない。
 
-*\*MIDI1.0では0xA[0-F)はポロフォニックキープレッシャーメッセージ*
+*\*MIDI1.0では0xA[0-F]はポリフォニックキープレッシャーメッセージ*
 
 ### 4-3. シーケンス位置リセット
 
@@ -238,12 +243,21 @@ IGBデバイスのパラメータ変更メッセージはは3-6byteで表現さ�
     - その他のエラー
 
 ```
-(TODO: ID体系の整理)
+(TODO: ID体系の整理とバリューの定義)
 
 ### 4-6. システムエクスクルーシブメッセージ
 
 MIDI1.0と基本的に同じ仕様であるが、RootデバイスのデバイスIDは0を指定する。\
 NodeデバイスのデバイスIDはIGBデバイス確認プロセスにて割り振られたIDを利用する。
+
+IGB-DIでは、下記のメッセージをシステムエクスクルーシブメッセージとして扱う。
+
+- デバイス情報メッセージ
+- パラメータ情報メッセージ
+- デバイスID設定メッセージ
+- カスタムクラス情報メッセージ
+
+(TODO: 各メッセージの具体的なフォーマットを決める)
 
 ## 5. デバイスチャネル
 
