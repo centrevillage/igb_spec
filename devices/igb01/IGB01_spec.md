@@ -21,6 +21,62 @@ IGB01はユーロラック規格のモジュールである。
 
 ## 2. データ構造
 
+### 2-1. システム設定
+
+IGB01全体に関わる設定。
+
+```mermaid
+flowchart TB
+  SystemConf -- "1" --> HardwareConf["ハードウェア設定"]
+  SystemConf["システム設定"] -- "1" --> IGBDeviceConf["IGBデバイス設定"] -- "N" --> IGBDeviceConfItem["IGBデバイス個別設定"]
+  SystemConf -- "1" --> SampleMng["サンプル管理"] -- "N" --> SampleItemConf["個別サンプル設定"]
+  SystemConf -- "1" --> AutomationMng["オートメーション管理"] -- "N" --> AutometionItemConff["個別オートメーション設定"]
+```
+
+### 2-2. ライブセット
+
+ライブセットは一回一回のライブごとに用意する設定。\
+ライブセットではトラックやパターンの管理などメインとなるデータを扱う。
+
+```mermaid
+flowchart TB
+  LiveSetMng["ライブセット管理"] -- "N" --> LiveSet["ライブセット"]
+  LiveSet -- "1" --> BpmConf["BPM設定"]
+  LiveSet -- "1" --> MixerConf["Mixer設定"]
+  LiveSet -- "1" --> ScaleQuantizer["スケールクオンタイズ設定"]
+  LiveSet -- "8" --> Track["トラック"]
+  Track -- "N" --> Device["デバイス"]
+  Device -- "N" --> Parameter["デバイスパラメータ"]
+  Track -- "N" --> ParameterSet["パラメータセット"]
+  Track -- "1" --> ClockDivMult["クロック設定"] 
+  Track -- "N" --> Pattern["パターン"]
+  Pattern -- "16" --> Sequence["シーケンス"]
+  LiveSet -- "N" --> Variable["変数パラメータ"]
+  Variable -. "references" .-> Parameter
+  LiveSet -- "N" --> Phrase["フレーズ"]
+  Sequence -. "references" .-> Parameter
+  ParameterSet -. "references" .-> Parameter
+  Phrase -. "references" .-> ParameterSet
+  Phrase -. "references" .-> Sequence
+```
+
+
+### 2-3. デバイス
+
+デバイスはモジュラーシンセにおける1モジュールに相当する単位である。\
+IGB-DIプロトコルによって通信する外部IGBデバイスと内部デバイスに大きく分かれる。
+
+```
+flowchart TB
+  Device["デバイス"] -- "implement" --o IGBDevice["IGBデバイス"]
+  Device -- "implement" --o InternalSynthDevice["内部音源デバイス"]
+  Device -- "implement" --o InternalFxDevice["内部エフェクトデバイス"]
+  Device -- "implement" --o InternalSamplerDevice["内部サンプラーデバイス"]
+  Device -- "implement" --o InternalLFODevice["内部LFOデバイス"]
+  Device -- "implement" --o InternalEnvDevice["内部エンベロープデバイス"]
+  Device -- "implement" --o InternalAutomationDevice["内部オートメーションデバイス"]
+```
+
 ## 3. 操作フロー
 
 ## 4. 機能詳細
