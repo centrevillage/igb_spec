@@ -15,10 +15,44 @@ IGB01はライブパフォーマンスのためのデバイスである。
 IGB01はユーロラック規格のモジュールである。
 横幅は60HPあり、ユーザーは好みのケースや電源を利用することができる。
 
-## 2. ハードウェアインタフェース
+## 1. ハードウェアインタフェース
 
-## 3. データ構造
+![ハードウェアUI](img/IGB01.png)
 
-## 4. 操作フロー
+## 2. データ構造
 
-## 5. 機能詳細
+## 3. 操作フロー
+
+## 4. 機能詳細
+
+### 4-x. IGB-DIデバイス管理
+
+<img src="img/IGB01_Display_device.png" width="30%">
+
+### 4-x. クロック設定
+
+<img src="img/IGB01_Display_clock.png" width="30%">
+
+### 4-x. デバイス選択
+
+<img src="img/IGB01_Display_device_sel.png" width="30%">
+
+### 4-x. パラメータ変更
+
+<img src="img/IGB01_Display_param.png" width="30%">
+
+### 4-x. フレーズ編集
+
+<img src="img/IGB01_Display_phrase.png" width="30%">
+
+### 4-x. 変数設定
+
+<img src="img/IGB01_Display_val.png" width="30%">
+
+### 4-x. マクロ設定
+
+<img src="img/IGB01_Display_macro.png" width="30%">
+
+### 4-x. システム設定
+
+<img src="img/IGB01_Display_system.png" width="30%">
