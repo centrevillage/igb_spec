@@ -27,10 +27,10 @@ IGB01全体に関わる設定。
 
 ```mermaid
 flowchart TB
-  SystemConf -- "1" --> HardwareConf["ハードウェア設定"]
-  SystemConf["システム設定"] -- "1" --> IGBDeviceConf["IGBデバイス設定"] -- "N" --> IGBDeviceConfItem["IGBデバイス個別設定"]
-  SystemConf -- "1" --> SampleMng["サンプル管理"] -- "N" --> SampleItemConf["個別サンプル設定"]
-  SystemConf -- "1" --> AutomationMng["オートメーション管理"] -- "N" --> AutometionItemConff["個別オートメーション設定"]
+  SystemConf -- "1" --o HardwareConf["ハードウェア設定"]
+  SystemConf["システム設定"] -- "1" --o IGBDeviceConf["IGBデバイス設定"] -- "N" --o IGBDeviceConfItem["IGBデバイス個別設定"]
+  SystemConf -- "1" --o SampleMng["サンプル管理"] -- "N" --o SampleItemConf["個別サンプル設定"]
+  SystemConf -- "1" --o AutomationMng["オートメーション管理"] -- "N" --o AutometionItemConff["個別オートメーション設定"]
 ```
 
 <details>
@@ -52,28 +52,41 @@ flowchart TB
 
 ```mermaid
 flowchart TB
-  LiveSetMng["ライブセット管理"] -- "N" --> LiveSet["ライブセット"]
-  LiveSet -- "1" --> BpmConf["BPM設定"]
-  LiveSet -- "1" --> MixerConf["Mixer設定"]
-  LiveSet -- "1" --> ScaleQuantizer["スケールクオンタイズ設定"]
-  LiveSet -- "1" --> MacroKnob["マクロノブ設定"]
-  LiveSet -- "1" --> RibbonController["リボンコントローラ設定"]
-  LiveSet -- "1" --> KeyboardBtn["キーボードボタン設定"]
-  LiveSet -- "8" --> Track["トラック"]
-  Track -- "N" --> Device["デバイス"]
-  Device -- "N" --> Parameter["デバイスパラメータ"]
-  Track -- "N" --> ParameterSet["パラメータセット"]
-  Track -- "1" --> ClockDivMult["クロック設定"] 
-  Track -- "N" --> Pattern["パターン"]
-  Pattern -- "0..16" --> Sequence["シーケンス"]
-  LiveSet -- "N" --> Variable["変数パラメータ"]
-  Variable -. "references" .-> Parameter
-  LiveSet -- "N" --> Phrase["フレーズ"]
-  Sequence -. "references" .-> Parameter
-  Sequence -. "references" .-> Variable
-  ParameterSet -. "references" .-> Parameter
+  LiveSetMng["ライブセット管理"] -- "N" --o LiveSet["ライブセット"]
+  LiveSet -- "8" --o MacroKnob["マクロノブ"]
+  LiveSet -- "8" --o RibbonController["リボンコントローラ"]
+  LiveSet -- "1" --o KeyboardBtn["キーボードボタン"]
+  LiveSet -- "N" --o DefaultParameter["パラメータ初期値"]
+  LiveSet -- "8" --o Track["トラック"]
+  Track -- "N" --o Device["デバイス"]
+  Device -- "N" --o Parameter["デバイスパラメータ"]
+  Track -- "N" --o ParameterSet["パラメータセット"]
+  Track -- "N" --o Pattern["パターン"]
+  Pattern -- "0..16" --o Sequence["シーケンス"]
+  LiveSet -- "N" --o Variable["変数パラメータ"]
+  Variable -. "update" .-> Parameter
+  LiveSet -- "N" --o Phrase["フレーズ"]
+  subgraph ParameterChange["パラメータ変更"]
+    Sequence
+    MacroKnob
+    RibbonController
+    KeyboardBtn
+    ParameterSet
+    DefaultParameter
+  end
+  ParameterChange -. "update" .-> Parameter
+  ParameterChange -. "update" .-> Variable
   Phrase -. "references" .-> ParameterSet
   Phrase -. "references" .-> Pattern
+  Track -- "1" --o ClockDivMult["クロック設定"] 
+  subgraph CommonInfo["共通情報"]
+    BpmConf["BPM設定"]
+    MixerConf["Mixer設定"]
+    ScaleQuantizer["スケールクオンタイズ設定"]
+  end
+  LiveSet -- "1" --o CommonInfo
+  ParameterChange -. "update" .-> CommonInfo
+  ParameterChange -. "update" .-> ClockDivMult
 ```
 
 <details>
@@ -113,13 +126,13 @@ IGB-DIプロトコルによって通信する外部IGBデバイスと内部デ�
 
 ```mermaid
 flowchart TB
-  Device["デバイス"] -- "implement" --o IGBDevice["IGBデバイス"]
-  Device -- "implement" --o InternalSynthDevice["内部音源デバイス"]
-  Device -- "implement" --o InternalFxDevice["内部エフェクトデバイス"]
-  Device -- "implement" --o InternalSamplerDevice["内部サンプラーデバイス"]
-  Device -- "implement" --o InternalLFODevice["内部LFOデバイス"]
-  Device -- "implement" --o InternalEnvDevice["内部エンベロープデバイス"]
-  Device -- "implement" --o InternalAutomationDevice["内部オートメーションデバイス"]
+  Device["デバイス"] -. "implement" .-> IGBDevice["IGBデバイス"]
+  Device -. "implement" .-> InternalSynthDevice["内部音源デバイス"]
+  Device -. "implement" .-> InternalFxDevice["内部エフェクトデバイス"]
+  Device -. "implement" .-> InternalSamplerDevice["内部サンプラーデバイス"]
+  Device -. "implement" .-> InternalLFODevice["内部LFOデバイス"]
+  Device -. "implement" .-> InternalEnvDevice["内部エンベロープデバイス"]
+  Device -. "implement" .-> InternalAutomationDevice["内部オートメーションデバイス"]
 ```
 
 <details>
