@@ -33,6 +33,18 @@ flowchart TB
   SystemConf -- "1" --> AutomationMng["オートメーション管理"] -- "N" --> AutometionItemConff["個別オートメーション設定"]
 ```
 
+<details>
+
+#### 2-1-1. ハードウェア設定
+  
+#### 2-1-2. IGBデバイス設定
+
+#### 2-1-3. サンプル管理
+
+#### 2-1-4. オートメーション管理
+
+</details>
+
 ### 2-2. ライブセット
 
 ライブセットは一回一回のライブごとに用意する設定。\
@@ -44,29 +56,62 @@ flowchart TB
   LiveSet -- "1" --> BpmConf["BPM設定"]
   LiveSet -- "1" --> MixerConf["Mixer設定"]
   LiveSet -- "1" --> ScaleQuantizer["スケールクオンタイズ設定"]
+  LiveSet -- "1" --> MacroKnob["マクロノブ設定"]
+  LiveSet -- "1" --> RibbonController["リボンコントローラ設定"]
+  LiveSet -- "1" --> KeyboardBtn["キーボードボタン設定"]
   LiveSet -- "8" --> Track["トラック"]
   Track -- "N" --> Device["デバイス"]
   Device -- "N" --> Parameter["デバイスパラメータ"]
   Track -- "N" --> ParameterSet["パラメータセット"]
   Track -- "1" --> ClockDivMult["クロック設定"] 
   Track -- "N" --> Pattern["パターン"]
-  Pattern -- "16" --> Sequence["シーケンス"]
+  Pattern -- "0..16" --> Sequence["シーケンス"]
   LiveSet -- "N" --> Variable["変数パラメータ"]
   Variable -. "references" .-> Parameter
   LiveSet -- "N" --> Phrase["フレーズ"]
   Sequence -. "references" .-> Parameter
+  Sequence -. "references" .-> Variable
   ParameterSet -. "references" .-> Parameter
   Phrase -. "references" .-> ParameterSet
-  Phrase -. "references" .-> Sequence
+  Phrase -. "references" .-> Pattern
 ```
 
+<details>
+
+#### 2-2-x. ライブセット
+
+#### 2-2-x. BPM設定
+
+#### 2-2-x. Mixer設定
+
+#### 2-2-x. スケールクオンタイズ設定
+
+#### 2-2-x. トラック
+
+#### 2-2-x. デバイス
+
+#### 2-2-x. デバイスパラメータ
+
+#### 2-2-x. パラメータセット 
+
+#### 2-2-x. クロック設定
+
+#### 2-2-x. 変数パラメータ
+
+#### 2-2-x. パターン
+
+#### 2-2-x. シーケンス
+
+#### 2-2-x. フレーズ
+  
+</details>
 
 ### 2-3. デバイス
 
 デバイスはモジュラーシンセにおける1モジュールに相当する単位である。\
 IGB-DIプロトコルによって通信する外部IGBデバイスと内部デバイスに大きく分かれる。
 
-```
+```mermaid
 flowchart TB
   Device["デバイス"] -- "implement" --o IGBDevice["IGBデバイス"]
   Device -- "implement" --o InternalSynthDevice["内部音源デバイス"]
@@ -76,6 +121,24 @@ flowchart TB
   Device -- "implement" --o InternalEnvDevice["内部エンベロープデバイス"]
   Device -- "implement" --o InternalAutomationDevice["内部オートメーションデバイス"]
 ```
+
+<details>
+
+#### 2-3-x. IGBデバイス
+
+#### 2-3-x. 内部音源デバイス
+
+#### 2-3-x. 内部エフェクトデバイス
+
+#### 2-3-x. 内部サンプラーデバイス
+
+#### 2-3-x. 内部LFOデバイス
+
+#### 2-3-x. 内部エンベロープデバイス
+
+#### 2-3-x. 内部オートメーションデバイス
+
+</details>
 
 ## 3. 操作フロー
 
