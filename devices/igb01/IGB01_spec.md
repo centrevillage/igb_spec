@@ -19,6 +19,90 @@ IGB01はユーロラック規格のモジュールである。
 
 ![ハードウェアUI](img/IGB01.png)
 
+<details>
+
+### 1-1. パネル面
+
+| 配置 | 種類             | 名称            | 説明                                           |
+|------|------------------|-----------------|------------------------------------------------|
+| 左上 | USB Type-C       | USB Device      | USB Type-Cのデバイスポート                     |
+| 左上 | USB Type-C       | USB Host        | USB Type-Cのホストポート                       |
+| 左上 | SDMMCスロット    | SD/MMC          | SD/MMCカードスロット                           |
+| 左上 | TRSジャック      | IGB Next        | IGB-DI Next接続                                |
+| 左上 | TRSジャック      | IGB Prev        | IGB-DI Prev接続                                |
+| 左上 | TRSジャック      | MIDI Out        | MIDI出力(Type-A)                               |
+| 左上 | TRSジャック      | MIDI In         | MIDI入力(Type-B) |
+| 左上 | TSジャック       | CLK Out         | クロック出力(0-5V) |
+| 左上 | TSジャック       | RST Out         | リセット出力(0-5V) |
+| 左上 | TSジャック       | CV1 In          | CV1入力(0V to +10V) |
+| 左上 | TSジャック       | CV2 In          | CV2入力(0V to +10V) |
+| 左上 | TSジャック       | CV1 Out         | CV1出力(0V to +10V) |
+| 左上 | TSジャック       | CV2 Out         | CV2出力(0V to +10V) |
+| 左上 | TSジャック       | CV3 Out         | CV3出力(0V to +10V) |
+| 左上 | TSジャック       | CV4 Out         | CV4出力(0V to +10V) |
+| 右上 | TSジャック       | SND L Out       | センドLオーディオ出力(Modular Level) |
+| 右上 | TSジャック       | SND R Out       | センドRオーディオ出力(Modular Level) |
+| 右上 | TSジャック       | RTN L In        | リターンLオーディオ入力(Modular Level) |
+| 右上 | TSジャック       | RTN L Out       | リターンRオーディオ入力(Modular Level) |
+| 右上 | TSジャック       | L Out           | メインLオーディオ出力(Modular Level) |
+| 右上 | TSジャック       | R Out           | メインRオーディオ出力(Modular Level) |
+| 右上 | TSジャック       | EXT L In        | 外部Lオーディオ入力(Modular Level) |
+| 右上 | TSジャック       | EXT L Out       | 外部Rオーディオ入力(Modular Level) |
+| 右上 | TSジャック       | LINE L Out      | メインLオーディオ出力(Line Level) |
+| 右上 | TSジャック       | LINE R Out      | メインRオーディオ出力(Line Level) |
+| 右上 | TRSジャック      | PHONE Out       | メインフォンオーディオ出力(Low-Impedance) |
+| 右上 | LED              | PEAK LED        | メイン出力のピークLED |
+| 中上 | エンコーダ       | PARAM Knob1     | 左上のパラメータノブ |
+| 中上 | エンコーダ       | PARAM Knob2     | 右上のパラメータノブ |
+| 中上 | エンコーダ       | PARAM Knob3     | 左下のパラメータノブ |
+| 中上 | エンコーダ       | PARAM Knob4     | 右下のパラメータノブ |
+| 中上 | LEDボタン        | FINE Button     | パラメータ変化量の切り替え(Fine <-> Coarse) |
+| 中上 | LEDボタン        | SELECT Button   | タッチキーの選択モード切替 |
+| 中上 | LEDボタン        | REC Button      | レコーディングモード切替 |
+| 中上 | LEDボタン        | PLAY Button     | 再生/停止 |
+| 中上 | ディスプレイ     | Display         | 円形メインディスプレイ |
+| 中上 | タッチプレート   | Step Key        | 16のステップに対応したタッチキー |
+| 中上 | LED              | Outer Step LED  | 16のステップに対応したLED(外側) |
+| 中上 | LED              | Inner Step LED  | 16のステップに対応したLED(内側) |
+| 中下 | ボタン           | COPY Button     | コピー操作に関わるボタン |
+| 中下 | ボタン           | DEVICE Button   | デバイス/デバイスパラメータ設定に関わるボタン |
+| 中下 | ボタン           | LIVSET Button   | ライブセット操作に関わるボタン |
+| 中下 | ボタン           | PRMSET Button   | パラメータセット操作に関わるボタン |
+| 中下 | ボタン           | SEQ Button      | シーケンサーに関わるボタン |
+| 中下 | ボタン           | CLOCK Button    | BPM/クロック設定に関わるボタン |
+| 中下 | ボタン           | EDIT Button     | 各情報の編集モードへの遷移ボタン |
+| 中下 | ボタン           | FUNC Button     | サブ機能へのアクセスボタン |
+| 中下 | ボタン           | PREV Button     | パラメータ表示ページの前移動ボタン |
+| 中下 | ボタン           | NEXT Button     | パラメータ表示ページの次移動ボタン |
+| 中下 | ボタン           | PATTERN Button  | 8つのクイックアクセスパターンボタン |
+| 中下 | ボタン           | TRACK Button    | 8つのトラック選択ボタン |
+| 左中 | ポテンショメータ | PERF Knob       | 8つのパフォーマンスノブ |
+| 左中 | ボタン           | PERF ASSIGN Button   | 8つのパフォーマンスノブへのパラメータ割り当てボタン |
+| 左中 | LED              | PERF LED      | パフォーマンスノブの現在値を表現する8つのバイカラーLED |
+| 左下 | LEDボタン        | RIBBON MODE Button | リボンコントローラで操作する8つのパラメータ切り替え用ボタン。パラメータのアサインも行う。 |
+| 左下 | LEDボタン        | RELATIVE Button | リボンコントローラの挙動を相対にするか絶対にするかの切り替え |
+| 左下 | LEDボタン        | LATCH Button | リボンコントローラの挙動をラッチにするかモーメンタリにするかの切り替え |
+| 左下 | ソフトポット     | RIBBON Controller | リボンコントローラ |
+| 右中 | LEDスライダー    | MIXER LEVEL Slider | ミキサートラックの8つのレベルコントロール |
+| 右中 | ボタン           | MUTE Button  | ミキサートラックの8つのミュート切り替え |
+| 右下 | LEDボタン        | OCTAVE Button  | キーボードのオクターブボタン |
+| 右下 | LEDボタン        | KEYBOARD Button | 音階演奏＆設定用キーボードボタン |
+
+### 1-2. 背面
+
+| 種類           | 名称       | 説明                          |
+|----------------|------------|-------------------------------|
+| IGB-DIコネクタ | IGB2 Prev  | ポート2のIGB-DI Prevコネクタ  |
+| IGB-DIコネクタ | IGB2 Next  | ポート2のIGB-DI Nextコネクタ  |
+| IGB-DIコネクタ | IGB3 Prev  | ポート3のIGB-DI Prevコネクタ  |
+| IGB-DIコネクタ | IGB3 Next  | ポート3のIGB-DI Nextコネクタ  |
+| IGB-DIコネクタ | IGB4 Prev  | ポート4のIGB-DI Prevコネクタ  |
+| IGB-DIコネクタ | IGB4 Next  | ポート4のIGB-DI Nextコネクタ  |
+| IDCコネクタ    | I2C Prev   | I2C Prevコネクタ              |
+| IDCコネクタ    | I2C Next   | I2C Nextコネクタ              |
+
+</details>
+
 ## 2. データ構造
 
 ### 2-1. システム設定
