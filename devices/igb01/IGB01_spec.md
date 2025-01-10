@@ -82,7 +82,7 @@ IGB01はユーロラック規格のモジュールである。
 | 左下 | LEDボタン        | RIBBON MODE Button | リボンコントローラで操作する8つのパラメータ切り替え用ボタン。パラメータのアサインも行う。 |
 | 左下 | LEDボタン        | RELATIVE Button | リボンコントローラの挙動を相対にするか絶対にするかの切り替え |
 | 左下 | LEDボタン        | LATCH Button | リボンコントローラの挙動をラッチにするかモーメンタリにするかの切り替え |
-| 左下 | ソフトポット     | RIBBON Controller | リボンコントローラ |
+| 左下 | ソフトポット     | RIBBON | リボンコントローラ |
 | 右中 | LEDスライダー    | MIXER LEVEL Slider | ミキサートラックの8つのレベルコントロール |
 | 右中 | ボタン           | MUTE Button  | ミキサートラックの8つのミュート切り替え |
 | 右下 | LEDボタン        | OCTAVE Button  | キーボードのオクターブボタン |
@@ -111,33 +111,39 @@ IGB01全体に関わる設定。
 
 ```mermaid
 flowchart TB
-  SystemConf -- "1" --o HardwareConf["ハードウェア設定"]
-  SystemConf["システム設定"] -- "1" --o IGBDeviceConf["IGBデバイス設定"] -- "N" --o IGBDeviceConfItem["IGBデバイス個別設定"]
+  SystemConf["システム設定"] -- "1" --o LiveSetMng["ライブセット管理"] -- "N" --o LiveSet["個別ライブセット設定"]
+  SystemConf -- "1" --o IGBDeviceConf["IGBデバイス設定"] -- "N" --o IGBDeviceConfItem["IGBデバイス個別設定"]
   SystemConf -- "1" --o SampleMng["サンプル管理"] -- "N" --o SampleItemConf["個別サンプル設定"]
   SystemConf -- "1" --o AutomationMng["オートメーション管理"] -- "N" --o AutometionItemConff["個別オートメーション設定"]
+  SystemConf -- "1" --o HardwareConf["ハードウェア設定"]
 ```
 
 <details>
 
-#### 2-1-1. ハードウェア設定
+#### 2-1-1. ライブセット管理
+
+- ライブセット名の編集
+- ライブセットの削除
+
+#### 2-1-2. ハードウェア設定
 
 - ファームウェア情報 
 - ディスプレイ輝度設定
 - デバッグログ
   
-#### 2-1-2. IGBデバイス設定
+#### 2-1-3. IGBデバイス設定
 
 - IGB-DIポート設定
   - 通信レート設定
 - デバイスの再検知
 - デバイスIDの再割り当て
 
-#### 2-1-3. サンプル管理
+#### 2-1-4. サンプル管理
 
 - サンプルの削除
 - サンプルの編集
 
-#### 2-1-4. オートメーション管理
+#### 2-1-5. オートメーション管理
 
 - オートメーションの削除
 - オートメーションの編集
@@ -151,7 +157,6 @@ flowchart TB
 
 ```mermaid
 flowchart TB
-  LiveSetMng["ライブセット管理"] -- "N" --o LiveSet["ライブセット"]
   LiveSet -- "8" --o MacroKnob["パフォーマンスノブ"]
   LiveSet -- "8" --o RibbonController["リボンコントローラ"]
   LiveSet -- "1" --o KeyboardBtn["キーボードボタン"]
@@ -406,21 +411,71 @@ IGB01内蔵のシーケンサーデバイス。
 
 ## 4. 機能詳細
 
-### 4-x. IGB-DIデバイス管理
-
-<img src="img/IGB01_Display_device.png" width="30%">
-
 ### 4-x. クロック設定
 
 <img src="img/IGB01_Display_clock.png" width="30%">
 
-### 4-x. デバイス選択
+```
+モードへの遷移: CLOCK
+```
+
+設定可能な項目:
+- 現在のライブセットのBPM
+- 各トラックのクロックディバイダー/マルチプライヤー設定
+- スイング等のクロックモジュレーション
+
+### 4-x. デバイス管理
 
 <img src="img/IGB01_Display_device_sel.png" width="30%">
+
+```
+モードへの遷移: EDIT + DEVICE
+```
+
+設定可能な項目:
+- デバイスの追加/削除
+
+1トラックあたり最大で16デバイス登録可能。\
+ただしデバイスパラメータの合計は128個以下でなくてはならない。
+
+#### 4-x-x. デバイス編集
+
+```
+モードへの遷移: EDIT + DEVICE + Step Key
+```
+
+設定可能な項目:
+- デバイスの個別設定
+- デバイスパラメータの有効/無効化
+
+1トラックあたり、各デバイスのデバイスパラメータの合計が128を超えることはできないので、利用しないパラメータは適宜無効化する必要がある。
+
 
 ### 4-x. パラメータ変更
 
 <img src="img/IGB01_Display_param.png" width="30%">
+
+```
+モードへの遷移: DEVICE
+```
+
+`Step Key` で別のデバイスのパラメータ変更画面に遷移可能。\
+パラメータが1ページで収まらない場合は `PREV` `NEXT` ボタンでページ遷移可能。
+
+`PARAM` ノブで各パラメータの初期値を変更可能。\
+すべてのシーケンスやモジュレーションが未適用の場合はここで設定したパラメータ初期値が有効になる。
+
+設定可能な項目:
+- パラメータ初期値の変更
+- `PERF Knob` へのパラメータアサイン(`PARAM` push + `PERF ASSIGN`)
+- `RIBBON` へのパラメータアサイン(`PARAM` push + `RIBBON MODE`)
+- マクロパラメータの追加(`PARAM` push + `FUNC` + `PRMSET`)
+- シーケンスパラメータの追加(`PARAM` push + `SEQ`) 
+
+情報表示項目:
+- 各パラメータ名
+- 各パラメータ初期値
+- 各パラメータのアサイン状況(パフォーマンスノブ/リボン/マクロ/シーケンサー)
 
 ### 4-x. フレーズ編集
 
@@ -465,6 +520,8 @@ IGB01内蔵のシーケンサーデバイス。
 - 各ライブセットのカテゴリ名
 
 #### 4-x-x. IGBデバイス設定
+
+<img src="img/IGB01_Display_device.png" width="30%">
 
 ```
 モードへの遷移: システム設定画面からドリルダウン
