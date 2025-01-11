@@ -157,7 +157,7 @@ flowchart TB
 
 ```mermaid
 flowchart TB
-  LiveSet -- "8" --o MacroKnob["パフォーマンスノブ"]
+  LiveSet["ライブセット"] -- "8" --o MacroKnob["パフォーマンスノブ"]
   LiveSet -- "8" --o RibbonController["リボンコントローラ"]
   LiveSet -- "1" --o KeyboardBtn["キーボードボタン"]
   LiveSet -- "N" --o DefaultParameter["パラメータ初期値"]
@@ -415,9 +415,7 @@ IGB01内蔵のシーケンサーデバイス。
 
 <img src="img/IGB01_Display_clock.png" width="30%">
 
-```
-モードへの遷移: CLOCK
-```
+モードへの遷移: `CLOCK`
 
 設定可能な項目:
 - 現在のライブセットのBPM
@@ -428,9 +426,7 @@ IGB01内蔵のシーケンサーデバイス。
 
 <img src="img/IGB01_Display_device_sel.png" width="30%">
 
-```
-モードへの遷移: EDIT + DEVICE
-```
+モードへの遷移: `EDIT + DEVICE`
 
 設定可能な項目:
 - デバイスの追加/削除
@@ -440,9 +436,7 @@ IGB01内蔵のシーケンサーデバイス。
 
 #### 4-x-x. デバイス編集
 
-```
-モードへの遷移: EDIT + DEVICE + Step Key
-```
+モードへの遷移: `EDIT + DEVICE + Step Key`
 
 設定可能な項目:
 - デバイスの個別設定
@@ -455,9 +449,7 @@ IGB01内蔵のシーケンサーデバイス。
 
 <img src="img/IGB01_Display_param.png" width="30%">
 
-```
-モードへの遷移: DEVICE
-```
+モードへの遷移: `DEVICE`
 
 `Step Key` で別のデバイスのパラメータ変更画面に遷移可能。\
 パラメータが1ページで収まらない場合は `PREV` `NEXT` ボタンでページ遷移可能。
@@ -481,21 +473,64 @@ IGB01内蔵のシーケンサーデバイス。
 
 <img src="img/IGB01_Display_phrase.png" width="30%">
 
+モードへの遷移: `FUNC + SEQ`
+
+### 4-x. パラメータセット編集
+
+モードへの遷移: `PRMSET`
+
+### 4-x. パターン管理
+
+モードへの遷移: `EDIT + PATTERN`
+
+### 4-x. シーケンス編集 
+
+モードへの遷移: `SEQ`
+
 ### 4-x. マクロパラメータ設定
 
 <img src="img/IGB01_Display_val.png" width="30%">
+
+モードへの遷移: `FUNC + PRMSET`
 
 ### 4-x. パフォーマンスノブ設定
 
 <img src="img/IGB01_Display_macro.png" width="30%">
 
+モードへの遷移: `EDIT + PERF ASSIGN` or `PARAM push + PERF ASSIGN`
+
+### 4-x. リボン設定
+
+モードへの遷移: `EDIT + RIBBON MODE` or `PARAM push + RIBBON MODE`
+
+### 4-x. キーボード設定
+
+モードへの遷移: `EDIT + OCTAVE` or `PARAM push + OCTAVE`
+
+### 4-x. スケールクオンタイズ設定
+
+モードへの遷移: `EDIT + KEYBOARD`
+
+### 4-x. ミキサー設定
+
+モードへの遷移: `EDIT + MUTE`
+
+### 4-x. 編集モード選択
+
+モードへの遷移: `EDIT(long press 2sec)`
+
+各設定モードへ遷移する共通メニュー。\
+ショートカットを忘れた時のためのリマインダーの役割。
+
+情報表示項目:
+- モード名
+- モード遷移へのショートカット
+
 ### 4-x. システム設定
 
 <img src="img/IGB01_Display_system.png" width="30%">
 
-```
-モードへの遷移: FUNC + CLOCK
-```
+モードへの遷移: `FUNC + CLOCK`
 
 各詳細設定へ遷移可能なメニュー画面。\
 `Step Key` か `PARAM Knob` を押すことで各詳細設定モードに遷移。
@@ -504,9 +539,7 @@ IGB01内蔵のシーケンサーデバイス。
 
 #### 4-x-x. ライブセット管理
 
-```
 モードへの遷移: システム設定画面からドリルダウン
-```
 
 設定可能な項目:
 - ライブセットの削除
@@ -523,9 +556,7 @@ IGB01内蔵のシーケンサーデバイス。
 
 <img src="img/IGB01_Display_device.png" width="30%">
 
-```
 モードへの遷移: システム設定画面からドリルダウン
-```
 
 設定可能な項目:
 - デバイスIDの再割り当て
@@ -543,9 +574,7 @@ IGB01内蔵のシーケンサーデバイス。
 
 #### 4-x-x. サンプル管理
 
-```
-モードへの遷移: システム設定画面からドリルダウン
-```
+モードへの遷移: システム設定画面からドリルダウン or `FUNC + EDIT + PLAY`
 
 設定可能な項目:
 - サンプルの削除
@@ -564,9 +593,7 @@ IGB01内蔵のシーケンサーデバイス。
 
 #### 4-x-x. オートメーション管理
 
-```
 モードへの遷移: システム設定画面からドリルダウン
-```
 
 設定可能な項目:
 - オートメーションの削除
@@ -585,9 +612,7 @@ IGB01内蔵のシーケンサーデバイス。
 
 #### 4-x-x. ハードウェア設定
 
-```
 モードへの遷移: システム設定画面からドリルダウン
-```
 
 設定可能な項目(1ページ目):
 - 画面輝度 
