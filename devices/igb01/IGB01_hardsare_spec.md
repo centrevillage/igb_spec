@@ -1,6 +1,6 @@
 # IGB01ハードウェア構成
 
-```
+```mermaid
 flowchart LR
   MainCore["Main Core: STM32MP157"]
   MainRAM["RAM: DDR3 512MB"]
