@@ -17,7 +17,7 @@ flowchart LR
   CoreBoard -- "SPI" --> CtrlMCU2["Ctrl MCU #2 (Analog/Button): STM32G431"] -- "read" --> AnalogSensors(["Analog Sensors: POT/SLIDER/RIBBON"])
   CtrlMCU2 -- "read" --> Buttons(["Buttons"])
   CoreBoard -- "SPI" --> DAC["DAC(for CV): DAC8165(14bit, 4ch)"] -- "DC Out" --> CVOut(["CV1-4 Out"])
-  CoreBoard -- "SPI" --> ADC["ADC(for CV): MCP33151(14bit, 1ch) x 2"] -- "DC Out" --> CVIn(["CV1-2 In"])
+  CoreBoard -- "SPI" --> ADC["ADC(for CV): MCP33151(14bit, 1ch) x 2"] -- "DC In" --> CVIn(["CV1-2 In"])
   CoreBoard -- "I2C" --> LEDDriver["LED Driver: IS31FL3731"] --> LEDs(["LEDs"])
   CoreBoard -- "SPI" --> LCD(("LCD: Waveshare 1.28inch_LCD_Module(Round)"))
   CoreBoard -- "USB" --> USBDevice(["USB Device"])
